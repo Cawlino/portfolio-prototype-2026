@@ -23,18 +23,18 @@ export const Hero = () => {
   return (
     <section 
       ref={containerRef} 
-      className="min-h-screen flex flex-col justify-center items-center px-6 relative"
+      className="min-h-screen flex flex-col justify-center items-center px-4 md:px-12 lg:px-16 relative"
     >
-      <div className="max-w-5xl w-full">
+      <div className="max-w-[100rem] w-full">
         <h1 
           ref={titleRef} 
-          className="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter leading-tight"
+          className="text-6xl md:text-8xl lg:text-[10rem] font-extrabold tracking-tighter leading-none"
         >
           Elevando<br/>Conversões.
         </h1>
         <p 
           ref={subtitleRef} 
-          className="mt-6 text-xl md:text-2xl max-w-2xl font-light opacity-80"
+          className="mt-8 text-xl md:text-3xl max-w-3xl font-light opacity-80"
         >
           Protótipos de alta fidelidade e sistemas avançados de prospecção de leads, desenhados para impressionar e converter.
         </p>

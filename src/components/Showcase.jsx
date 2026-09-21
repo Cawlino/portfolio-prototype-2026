@@ -39,14 +39,12 @@ export const Showcase = ({ onNavigate }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // We get all project rows and animate them on scroll
     const rows = containerRef.current.querySelectorAll('.project-row');
     
     rows.forEach((row) => {
       const image = row.querySelector('.project-image');
       const text = row.querySelector('.project-text');
 
-      // Parallax effect on the image
       gsap.fromTo(image,
         { yPercent: -15, scale: 1.1 },
         {
@@ -62,7 +60,6 @@ export const Showcase = ({ onNavigate }) => {
         }
       );
 
-      // Text reveal
       gsap.fromTo(text,
         { opacity: 0, y: 50 },
         {
@@ -79,18 +76,17 @@ export const Showcase = ({ onNavigate }) => {
   }, []);
 
   return (
-    <section ref={containerRef} className="py-20 md:py-32 px-6 w-full flex flex-col gap-32 md:gap-48">
+    <section ref={containerRef} className="py-20 md:py-32 w-full flex flex-col gap-32 md:gap-48 px-4 md:px-12 lg:px-16 overflow-hidden">
       {projects.map((project, index) => {
-        // Alternate layout: even indexes have text on left, odd have text on right
         const isEven = index % 2 === 0;
         
         return (
-          <div key={project.id} className="project-row max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          <div key={project.id} className="project-row max-w-[100rem] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center">
             
             <div className={`project-text flex flex-col items-start ${isEven ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
               <div className="text-xs font-bold tracking-widest uppercase mb-4 opacity-50">0{index + 1} / 0{projects.length}</div>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-tight">{project.title}</h2>
-              <p className="text-base md:text-lg opacity-80 mb-8 leading-relaxed max-w-lg">
+              <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-6 tracking-tight leading-tight">{project.title}</h2>
+              <p className="text-base md:text-lg opacity-80 mb-8 leading-relaxed max-w-xl">
                 {project.description}
               </p>
               
@@ -106,28 +102,29 @@ export const Showcase = ({ onNavigate }) => {
               <button 
                 data-cursor="hover"
                 onClick={() => onNavigate('project', project.id)}
-                className="px-6 py-3 md:px-8 md:py-4 border border-current rounded-full uppercase tracking-widest text-xs md:text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-300 mix-blend-difference"
+                className="px-6 py-3 md:px-8 md:py-4 border border-current rounded-full uppercase tracking-widest text-xs md:text-sm hover:bg-[#1E293B] hover:text-[#F0F4F8] transition-colors duration-300"
               >
                 Ver Estudo de Caso
               </button>
             </div>
 
-            <div className={`project-image-container overflow-hidden rounded-2xl aspect-[4/3] bg-zinc-800 relative shadow-2xl w-full ${isEven ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}`}>
-              <div className="project-image absolute inset-[-10%] w-[120%] h-[120%]">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover opacity-70"
-                />
-                {/* Mockup Overlay Elements to give a "Prototype" feel */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-4/5 h-4/5 border border-white/20 rounded-xl bg-black/20 backdrop-blur-sm flex flex-col p-4 shadow-2xl">
-                    <div className="flex gap-2 mb-4">
-                      <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-red-500"></div>
-                      <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-green-500"></div>
+            <div className={`w-full ${isEven ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}`}>
+              <div className="project-image-container image-deform-container bg-slate-200 relative shadow-2xl aspect-[4/3] md:aspect-[16/10] w-full">
+                <div className="project-image absolute inset-[-10%] w-[120%] h-[120%]">
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover opacity-80"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-4/5 h-4/5 border border-white/20 rounded-xl bg-black/10 backdrop-blur-md flex flex-col p-4 shadow-2xl">
+                      <div className="flex gap-2 mb-4">
+                        <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-red-400"></div>
+                        <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-yellow-400"></div>
+                        <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-green-400"></div>
+                      </div>
+                      <div className="flex-1 rounded border border-white/10 bg-white/10"></div>
                     </div>
-                    <div className="flex-1 rounded border border-white/10 bg-white/5"></div>
                   </div>
                 </div>
               </div>

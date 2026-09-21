@@ -2,11 +2,11 @@ import React from 'react';
 
 export const Footer = () => {
   return (
-    <footer className="py-20 px-6 md:px-12 w-full mt-20 border-t border-current border-opacity-10">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
+    <footer className="py-20 px-4 md:px-12 lg:px-16 w-full mt-20 border-t border-current border-opacity-10 overflow-hidden">
+      <div className="max-w-[100rem] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
         
         <div className="flex-1">
-          <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-none mb-6">
+          <h2 className="text-5xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-none mb-6">
             VAMOS<br/>CONVERSAR.
           </h2>
           <button 

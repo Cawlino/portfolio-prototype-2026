@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { useTheme } from './context/ThemeContext';
 import { SmoothScrollProvider } from './components/SmoothScrollProvider';
 import { CustomCursor } from './components/CustomCursor';
-import { ThemeToggle } from './components/ThemeToggle';
-import { Background3D } from './components/Background3D';
 import { Background2D } from './components/Background2D';
 import { Hero } from './components/Hero';
 import { Showcase } from './components/Showcase';
@@ -14,13 +11,8 @@ import { TransitionOverlay } from './components/TransitionOverlay';
 import { ProjectDetail } from './components/ProjectDetail';
 
 function AppContent() {
-  const { theme } = useTheme();
-  
-  // 'home' or 'project'
   const [currentView, setCurrentView] = useState('home');
   const [activeProjectId, setActiveProjectId] = useState(null);
-  
-  // Transition state
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [nextView, setNextView] = useState(null);
   const [nextProjectId, setNextProjectId] = useState(null);
@@ -41,18 +33,13 @@ function AppContent() {
   return (
     <>
       <CustomCursor />
-      <ThemeToggle />
       <Header onNavigate={handleNavigate} />
-      
       <TransitionOverlay 
         isActive={isTransitioning} 
         onTransitionComplete={onTransitionComplete} 
       />
-      
-      {/* Backgrounds based on theme */}
-      {theme === 'dark' ? <Background3D /> : <Background2D />}
+      <Background2D />
 
-      {/* Main Content */}
       <main className="relative z-10 w-full overflow-hidden">
         {currentView === 'home' && (
           <>
@@ -61,11 +48,9 @@ function AppContent() {
             <About />
           </>
         )}
-
         {currentView === 'project' && (
           <ProjectDetail projectId={activeProjectId} onNavigate={handleNavigate} />
         )}
-        
         <Footer />
       </main>
     </>
