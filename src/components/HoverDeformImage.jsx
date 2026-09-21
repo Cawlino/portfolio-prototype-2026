@@ -1,84 +1,83 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
 
 export const HoverDeformImage = ({ children, className }) => {
   const containerRef = useRef(null);
   const imgWrapperRef = useRef(null);
 
-  useEffect(() => {
-    // QuickTo for high performance
-    const tlTo = gsap.quickTo(containerRef.current, "borderTopLeftRadius", { ease: "power3.out", duration: 0.6 });
-    const trTo = gsap.quickTo(containerRef.current, "borderTopRightRadius", { ease: "power3.out", duration: 0.6 });
-    const brTo = gsap.quickTo(containerRef.current, "borderBottomRightRadius", { ease: "power3.out", duration: 0.6 });
-    const blTo = gsap.quickTo(containerRef.current, "borderBottomLeftRadius", { ease: "power3.out", duration: 0.6 });
+  const handleMouseMove = (e) => {
+    if (!containerRef.current || !imgWrapperRef.current) return;
     
-    // Scale and rotation for the inner content
-    const contentTo = gsap.quickTo(imgWrapperRef.current, "scale", { ease: "power3.out", duration: 0.6 });
-    const rotateTo = gsap.quickTo(imgWrapperRef.current, "rotate", { ease: "power3.out", duration: 0.6 });
+    const rect = containerRef.current.getBoundingClientRect();
+    
+    // Normalize coordinates between 0 and 1
+    const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
 
-    const handleMouseMove = (e) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      
-      // Calculate normalized mouse position (0 to 1) inside the element
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
+    const maxDeform = 45; // Máximo de deformação em %
+    const base = 5;       // Base em %
+    
+    // Calcula o peso de cada canto
+    const tl = base + (1 - x) * (1 - y) * maxDeform;
+    const tr = base + x * (1 - y) * maxDeform;
+    const br = base + x * y * maxDeform;
+    const bl = base + (1 - x) * y * maxDeform;
 
-      // Base radius (16px / 1rem) + Dynamic radius based on proximity (up to 40% or heavily rounded)
-      // We use percentages for a more fluid/organic look across different sizes
-      const maxDeform = 45; // Max percentage
-      const base = 3; // Base percentage (roughly resembles small border radius)
-      
-      // Proximity to corners
-      const tl = base + (1 - x) * (1 - y) * maxDeform;
-      const tr = base + (x) * (1 - y) * maxDeform;
-      const br = base + (x) * (y) * maxDeform;
-      const bl = base + (1 - x) * (y) * maxDeform;
+    // Usando gsap.to normal (overwrite: auto resolve concorrências)
+    // Isso evita o erro do quickTo que não suporta unidades dinâmicas em string.
+    gsap.to(containerRef.current, {
+      borderTopLeftRadius: `${tl}%`,
+      borderTopRightRadius: `${tr}%`,
+      borderBottomRightRadius: `${br}%`,
+      borderBottomLeftRadius: `${bl}%`,
+      duration: 0.3,
+      ease: "power2.out",
+      overwrite: "auto"
+    });
 
-      tlTo(`${tl}%`);
-      trTo(`${tr}%`);
-      brTo(`${br}%`);
-      blTo(`${bl}%`);
-      
-      // Subtle rotation based on X position (-2deg to 2deg)
-      rotateTo((x - 0.5) * 4);
-    };
+    gsap.to(imgWrapperRef.current, {
+      rotate: (x - 0.5) * 4,
+      duration: 0.3,
+      ease: "power2.out",
+      overwrite: "auto"
+    });
+  };
 
-    const handleMouseEnter = () => {
-      contentTo(1.1);
-    };
+  const handleMouseEnter = () => {
+    if (!imgWrapperRef.current) return;
+    gsap.to(imgWrapperRef.current, {
+      scale: 1.05,
+      duration: 0.5,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  };
 
-    const handleMouseLeave = () => {
-      // Reset back to normal
-      tlTo("1rem");
-      trTo("1rem");
-      brTo("1rem");
-      blTo("1rem");
-      contentTo(1);
-      rotateTo(0);
-    };
-
-    const el = containerRef.current;
-    if (el) {
-      el.addEventListener('mousemove', handleMouseMove);
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    return () => {
-      if (el) {
-        el.removeEventListener('mousemove', handleMouseMove);
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-      }
-    };
-  }, []);
+  const handleMouseLeave = () => {
+    if (!containerRef.current || !imgWrapperRef.current) return;
+    gsap.to(containerRef.current, {
+      borderRadius: "1rem", // Volta ao normal
+      duration: 0.6,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+    gsap.to(imgWrapperRef.current, {
+      scale: 1,
+      rotate: 0,
+      duration: 0.6,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  };
 
   return (
     <div 
       ref={containerRef} 
-      className={`overflow-hidden relative transform-gpu ${className}`}
-      style={{ borderRadius: '1rem' }} // Base initial state
+      className={`overflow-hidden relative transform-gpu cursor-pointer ${className}`}
+      style={{ borderRadius: '1rem' }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div ref={imgWrapperRef} className="w-full h-full absolute inset-0 transform-gpu">
         {children}
