@@ -82,7 +82,10 @@ export const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
           
           <div ref={addToRefs} className="flex flex-col group cursor-pointer">
-            <HoverDeformImage className="profile-image-container aspect-[3/4] mb-8 bg-zinc-200 shadow-2xl w-full">
+            <HoverDeformImage 
+              outerClassName="profile-image-container aspect-[3/4] mb-8 w-full"
+              innerClassName="bg-zinc-200 shadow-2xl"
+            >
               <img 
                 src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=2070&auto=format&fit=crop" 
                 alt="Daniel" 
@@ -101,7 +104,10 @@ export const About = () => {
           </div>
 
           <div ref={addToRefs} className="flex flex-col group cursor-pointer mt-0 md:mt-48">
-            <HoverDeformImage className="profile-image-container aspect-[3/4] mb-8 bg-zinc-200 shadow-2xl w-full">
+            <HoverDeformImage 
+              outerClassName="profile-image-container aspect-[3/4] mb-8 w-full"
+              innerClassName="bg-zinc-200 shadow-2xl"
+            >
               <img 
                 src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop" 
                 alt="Sócio" 

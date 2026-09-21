@@ -1,14 +1,15 @@
 import React, { useRef } from 'react';
 import gsap from 'gsap';
 
-export const HoverDeformImage = ({ children, className }) => {
+export const HoverDeformImage = ({ children, outerClassName, innerClassName }) => {
   const containerRef = useRef(null);
   const imgWrapperRef = useRef(null);
 
   const handleMouseMove = (e) => {
     if (!containerRef.current || !imgWrapperRef.current) return;
     
-    const rect = containerRef.current.getBoundingClientRect();
+    // We calculate from the static hit area (e.currentTarget) so it never flickers!
+    const rect = e.currentTarget.getBoundingClientRect();
     
     // Normalize coordinates between 0 and 1
     const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
@@ -23,8 +24,6 @@ export const HoverDeformImage = ({ children, className }) => {
     const br = base + x * y * maxDeform;
     const bl = base + (1 - x) * y * maxDeform;
 
-    // Usando gsap.to normal (overwrite: auto resolve concorrências)
-    // Isso evita o erro do quickTo que não suporta unidades dinâmicas em string.
     gsap.to(containerRef.current, {
       borderTopLeftRadius: `${tl}%`,
       borderTopRightRadius: `${tr}%`,
@@ -71,17 +70,26 @@ export const HoverDeformImage = ({ children, className }) => {
   };
 
   return (
-    <div 
-      ref={containerRef} 
-      className={`overflow-hidden relative transform-gpu cursor-pointer ${className}`}
-      style={{ borderRadius: '1rem' }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div ref={imgWrapperRef} className="w-full h-full absolute inset-0 transform-gpu">
-        {children}
+    <div className={`relative ${outerClassName || ''}`}>
+      {/* Deforming Element */}
+      <div 
+        ref={containerRef} 
+        className={`overflow-hidden relative w-full h-full transform-gpu ${innerClassName || ''}`}
+        style={{ borderRadius: '1rem' }}
+      >
+        <div ref={imgWrapperRef} className="w-full h-full absolute inset-0 transform-gpu">
+          {children}
+        </div>
       </div>
+      
+      {/* Invisible Static Hit Area */}
+      {/* Prevents flicker because this box never changes size/shape when hovered */}
+      <div 
+        className="absolute inset-0 z-20 cursor-pointer"
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      />
     </div>
   );
 };

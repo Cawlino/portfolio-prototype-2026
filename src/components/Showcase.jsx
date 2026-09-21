@@ -106,8 +106,11 @@ export const Showcase = ({ onNavigate }) => {
             </div>
 
             <div className={`w-full ${isEven ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}`}>
-              <HoverDeformImage className="project-image-container bg-slate-200 shadow-2xl aspect-[4/3] md:aspect-[16/10] w-full">
-                <img 
+              <HoverDeformImage 
+                outerClassName="project-image-container aspect-[4/3] md:aspect-[16/10] w-full"
+                innerClassName="bg-slate-200 shadow-2xl"
+              >
+                <img  
                   src={project.image} 
                   alt={project.title} 
                   className="parallax-img absolute w-[120%] h-[120%] left-[-10%] top-[-10%] object-cover opacity-80"
