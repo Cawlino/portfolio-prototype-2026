@@ -1,37 +1,35 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { HoverDeformImage } from './HoverDeformImage';
 
 const projects = [
   {
-    id: 1,
-    title: "Plataforma de Scraping & Leads",
-    description: "Desenvolvemos um sistema inteligente capaz de varrer a internet e encontrar os leads mais qualificados para o seu negócio. Interface moderna, rápida e focada em resultados reais.",
-    features: ["Busca automatizada em tempo real", "Enriquecimento de dados (Email, Telefone)", "Exportação simplificada para CRM"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
+    id: 'project-1',
+    title: 'Nexus Data Scraping',
+    description: 'Arquitetura de extração de dados em massa para identificar leads B2B no LinkedIn e diretórios corporativos. Reduziu o tempo de prospecção em 85%.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+    features: ['Python & BeautifulSoup', 'Integração CRM Automática', 'Dashboards Analíticos']
   },
   {
-    id: 2,
-    title: "Dashboard Analítico B2B",
-    description: "Painel de controle focado em visualização de dados em massa. Permite que gestores tomem decisões rapidamente baseados em gráficos dinâmicos de alta performance.",
-    features: ["Gráficos em tempo real com WebGL", "Filtros avançados e cruzamento de dados", "Integração via API com múltiplos ERPs"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+    id: 'project-2',
+    title: 'Aura Fintech UI',
+    description: 'Um redesign completo da experiência do usuário para um app de pagamentos. Interface minimalista com feedback tátil e microinterações fluidas.',
+    image: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?q=80&w=2070&auto=format&fit=crop',
+    features: ['React Native', 'Animações 60fps', 'Aumento de 40% em Conversão']
   },
   {
-    id: 3,
-    title: "E-commerce Headless B2B",
-    description: "Nova arquitetura de loja virtual descolada do frontend. Permite navegação instantânea e uma experiência de usuário comparável a aplicativos nativos.",
-    features: ["Arquitetura Headless com Next.js", "Checkout em 1 clique", "Animações fluidas entre páginas"],
-    image: "https://images.unsplash.com/photo-1661956602116-aa6865609028?q=80&w=2564&auto=format&fit=crop"
+    id: 'project-3',
+    title: 'Echo E-commerce',
+    description: 'Plataforma de e-commerce headless focada em performance brutal e SEO. Navegação sem transições de carregamento perceptíveis.',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
+    features: ['Next.js', 'Integração Shopify', 'Edge Computing']
   },
   {
-    id: 4,
-    title: "CRM Customizado para Vendas",
-    description: "Um CRM feito sob medida para gerenciar o funil de vendas dos leads prospectados. O sistema acompanha cada interação do usuário com a marca.",
-    features: ["Kanban interativo e arrastável", "Automação de e-mails de follow-up", "Histórico de atividades em tempo real"],
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+    id: 'project-4',
+    title: 'Lumina Analytics',
+    description: 'Dashboard de visualização de dados complexos transformados em gráficos interativos e fáceis de digerir. Tomada de decisão rápida e baseada em fatos.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+    features: ['D3.js', 'Data Storytelling', 'Modo Escuro Dinâmico']
   }
 ];
 
@@ -42,14 +40,13 @@ export const Showcase = ({ onNavigate }) => {
     const rows = containerRef.current.querySelectorAll('.project-row');
     
     rows.forEach((row) => {
-      const image = row.querySelector('.project-image');
+      const imageContainer = row.querySelector('.project-image-container');
       const text = row.querySelector('.project-text');
 
-      gsap.fromTo(image,
-        { yPercent: -15, scale: 1.1 },
+      gsap.fromTo(imageContainer,
+        { yPercent: -15 },
         {
           yPercent: 15,
-          scale: 1,
           ease: "none",
           scrollTrigger: {
             trigger: row,
@@ -109,25 +106,23 @@ export const Showcase = ({ onNavigate }) => {
             </div>
 
             <div className={`w-full ${isEven ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}`}>
-              <div className="project-image-container image-deform-container bg-slate-200 relative shadow-2xl aspect-[4/3] md:aspect-[16/10] w-full">
-                <div className="project-image absolute inset-[-10%] w-[120%] h-[120%]">
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover opacity-80"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-4/5 h-4/5 border border-white/20 rounded-xl bg-black/10 backdrop-blur-md flex flex-col p-4 shadow-2xl">
-                      <div className="flex gap-2 mb-4">
-                        <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-red-400"></div>
-                        <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-yellow-400"></div>
-                        <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-green-400"></div>
-                      </div>
-                      <div className="flex-1 rounded border border-white/10 bg-white/10"></div>
+              <HoverDeformImage className="project-image-container bg-slate-200 shadow-2xl aspect-[4/3] md:aspect-[16/10] w-full">
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="w-[120%] h-[120%] ml-[-10%] mt-[-10%] object-cover opacity-80"
+                />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-4/5 h-4/5 border border-white/20 rounded-xl bg-black/10 backdrop-blur-md flex flex-col p-4 shadow-2xl">
+                    <div className="flex gap-2 mb-4">
+                      <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-red-400"></div>
+                      <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-yellow-400"></div>
+                      <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-green-400"></div>
                     </div>
+                    <div className="flex-1 rounded border border-white/10 bg-white/10"></div>
                   </div>
                 </div>
-              </div>
+              </HoverDeformImage>
             </div>
 
           </div>

@@ -24,24 +24,6 @@ body {
   }
 }
 
-/* Organic Border Deformation on Hover */
-.image-deform-container {
-  overflow: hidden;
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  border-radius: 1rem;
-}
-.image-deform-container:hover {
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  transform: scale(1.02);
-}
-
-.image-deform-container img {
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.image-deform-container:hover img {
-  transform: scale(1.1) rotate(2deg);
-}
-
 /* Base styles for the custom cursor */
 .custom-cursor {
   position: fixed;

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { HoverDeformImage } from './HoverDeformImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,14 +26,13 @@ export const About = () => {
     );
 
     profilesRef.current.forEach((profile, index) => {
-      const img = profile.querySelector('.profile-img');
+      const imgContainer = profile.querySelector('.profile-image-container');
       const content = profile.querySelector('.profile-content');
 
-      gsap.fromTo(img,
-        { yPercent: -15, scale: 1.1 },
+      gsap.fromTo(imgContainer,
+        { yPercent: -15 },
         {
           yPercent: 15,
-          scale: 1,
           ease: "none",
           scrollTrigger: {
             trigger: profile,
@@ -82,13 +82,13 @@ export const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
           
           <div ref={addToRefs} className="flex flex-col group cursor-pointer">
-            <div className="image-deform-container aspect-[3/4] mb-8 bg-zinc-200 relative shadow-2xl w-full">
+            <HoverDeformImage className="profile-image-container aspect-[3/4] mb-8 bg-zinc-200 shadow-2xl w-full">
               <img 
                 src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=2070&auto=format&fit=crop" 
                 alt="Daniel" 
-                className="profile-img absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
+                className="absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
               />
-            </div>
+            </HoverDeformImage>
             <div className="profile-content">
               <h3 className="text-3xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Daniel</h3>
               <p className="text-sm font-bold tracking-widest uppercase opacity-50 mb-6 border-b border-current pb-4 inline-block">
@@ -101,13 +101,13 @@ export const About = () => {
           </div>
 
           <div ref={addToRefs} className="flex flex-col group cursor-pointer mt-0 md:mt-48">
-            <div className="image-deform-container aspect-[3/4] mb-8 bg-zinc-200 relative shadow-2xl w-full">
+            <HoverDeformImage className="profile-image-container aspect-[3/4] mb-8 bg-zinc-200 shadow-2xl w-full">
               <img 
                 src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop" 
                 alt="Sócio" 
-                className="profile-img absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
+                className="absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
               />
-            </div>
+            </HoverDeformImage>
             <div className="profile-content">
               <h3 className="text-3xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Sócio / Design</h3>
               <p className="text-sm font-bold tracking-widest uppercase opacity-50 mb-6 border-b border-current pb-4 inline-block">
