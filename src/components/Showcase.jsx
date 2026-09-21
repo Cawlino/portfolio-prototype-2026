@@ -40,10 +40,10 @@ export const Showcase = ({ onNavigate }) => {
     const rows = containerRef.current.querySelectorAll('.project-row');
     
     rows.forEach((row) => {
-      const imageContainer = row.querySelector('.project-image-container');
+      const innerImage = row.querySelector('.parallax-img');
       const text = row.querySelector('.project-text');
 
-      gsap.fromTo(imageContainer,
+      gsap.fromTo(innerImage,
         { yPercent: -15 },
         {
           yPercent: 15,
@@ -110,7 +110,7 @@ export const Showcase = ({ onNavigate }) => {
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-[120%] h-[120%] ml-[-10%] mt-[-10%] object-cover opacity-80"
+                  className="parallax-img absolute w-[120%] h-[120%] left-[-10%] top-[-10%] object-cover opacity-80"
                 />
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="w-4/5 h-4/5 border border-white/20 rounded-xl bg-black/10 backdrop-blur-md flex flex-col p-4 shadow-2xl">

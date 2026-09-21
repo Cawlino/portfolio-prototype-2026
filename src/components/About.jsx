@@ -26,10 +26,10 @@ export const About = () => {
     );
 
     profilesRef.current.forEach((profile, index) => {
-      const imgContainer = profile.querySelector('.profile-image-container');
+      const innerImage = profile.querySelector('.parallax-img');
       const content = profile.querySelector('.profile-content');
 
-      gsap.fromTo(imgContainer,
+      gsap.fromTo(innerImage,
         { yPercent: -15 },
         {
           yPercent: 15,
@@ -86,7 +86,7 @@ export const About = () => {
               <img 
                 src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=2070&auto=format&fit=crop" 
                 alt="Daniel" 
-                className="absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
+                className="parallax-img absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
               />
             </HoverDeformImage>
             <div className="profile-content">
@@ -105,7 +105,7 @@ export const About = () => {
               <img 
                 src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop" 
                 alt="Sócio" 
-                className="absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
+                className="parallax-img absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
               />
             </HoverDeformImage>
             <div className="profile-content">
