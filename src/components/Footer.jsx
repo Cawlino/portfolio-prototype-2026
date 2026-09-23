@@ -6,15 +6,20 @@ export const Footer = () => {
       <div className="max-w-[100rem] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
         
         <div className="flex-1">
+          <img 
+            src="/logo-vitrine-web.png" 
+            alt="Vitrine Web" 
+            className="h-12 md:h-16 w-auto object-contain mb-8 rounded-xl"
+          />
           <h2 className="text-5xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-none mb-6">
             VAMOS<br/>CONVERSAR.
           </h2>
           <button 
             data-cursor="hover"
             className="text-lg md:text-2xl border-b border-current pb-1 hover:opacity-50 transition-opacity"
-            onClick={() => window.location.href = "mailto:hello@antigravity.com"}
+            onClick={() => window.location.href = "mailto:hello@vitrineweb.com"}
           >
-            hello@antigravity.com
+            hello@vitrineweb.com
           </button>
         </div>
         

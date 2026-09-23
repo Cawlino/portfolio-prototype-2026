@@ -1,8 +1,42 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
+const projectDetails = {
+  'pacex': {
+    title: 'PACEX',
+    subtitle: 'AI',
+    image: '/pacex-mobile.png',
+    description: 'O PaceX Mobile é uma plataforma de treino inteligente e completa. Através de inteligência artificial avançada, o app atua como um personal trainer virtual, oferecendo insights, evolução constante e análises profundas para os atletas, tudo em uma interface altamente imersiva.',
+    client: 'PaceX',
+    services: 'App Mobile, Inteligência Artificial',
+    technologies: 'React Native, Expo, Node.js',
+    aspect: 'aspect-video w-full'
+  },
+  'adventista-play': {
+    title: 'ADVENTISTA',
+    subtitle: 'PLAY',
+    image: '/adventista-mobile.jpg',
+    description: 'Um aplicativo educacional gamificado, focado no estudo diário da Escola Sabatina. Inspirado no Duolingo, desenvolvemos recursos como ofensivas, XP e lições modulares. O design da aba de Lições foi pensado para oferecer uma interface limpa que não distrai o momento de devoção.',
+    client: 'Adventista Play',
+    services: 'Mobile App, Gamificação',
+    technologies: 'Expo, React Native',
+    aspect: 'aspect-[9/16] w-full max-w-[350px] mx-auto'
+  },
+  'dentista-cassiano': {
+    title: 'DR.',
+    subtitle: 'CASSIANO',
+    image: '/dentista-cassiano.png',
+    description: 'Landing page projetada para o Dr. Cassiano Martins Gomes, com foco na captação de pacientes e transmissão de autoridade. A interface limpa evidencia os 31 anos de experiência clínica, contando com componentes interativos como o comparador "Antes e Depois" e direcionamento ágil para o WhatsApp.',
+    client: 'Dr. Cassiano Martins Gomes',
+    services: 'Web Design, Landing Page',
+    technologies: 'React, Vite, CSS3',
+    aspect: 'aspect-video w-full'
+  }
+};
+
 export const ProjectDetail = ({ projectId, onNavigate }) => {
   const containerRef = useRef(null);
+  const project = projectDetails[projectId] || projectDetails['pacex'];
 
   useEffect(() => {
     // Scroll to top when mounting
@@ -24,37 +58,34 @@ export const ProjectDetail = ({ projectId, onNavigate }) => {
         ← Voltar para Projetos
       </button>
 
-      <h1 className="text-5xl md:text-7xl lg:text-9xl font-black tracking-tighter mb-8 leading-none">
-        ESTUDO DE<br/>CASO 0{projectId}.
+      <h1 className="text-5xl md:text-7xl lg:text-9xl font-black tracking-tighter mb-8 leading-none uppercase text-center md:text-left">
+        {project.title}<br/>{project.subtitle}.
       </h1>
 
-      <div className="w-full aspect-video bg-zinc-800 rounded-2xl overflow-hidden relative shadow-2xl mb-16">
+      <div className={`${project.aspect} bg-zinc-800 rounded-2xl overflow-hidden relative shadow-2xl mb-16`}>
         <img 
-          src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" 
-          alt="Project Cover" 
-          className="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700"
+          src={project.image} 
+          alt={project.title} 
+          className="w-full h-full object-cover transition-all duration-700"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-white text-2xl font-light tracking-widest">Vídeo / Demonstração aqui</p>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-lg opacity-80 mb-32 font-light">
         <div className="md:col-span-2 text-xl md:text-3xl leading-relaxed">
-          Este é o detalhamento do projeto. Aqui você explicaria qual era o problema do lead, qual foi a estratégia de design/desenvolvimento e os resultados alcançados com o protótipo.
+          {project.description}
         </div>
         <div className="flex flex-col gap-6 text-sm uppercase tracking-widest">
           <div>
             <strong className="block mb-2 opacity-50">Cliente</strong>
-            <span>Empresa Confidencial</span>
+            <span>{project.client}</span>
           </div>
           <div>
             <strong className="block mb-2 opacity-50">Serviços</strong>
-            <span>Scraping, UI/UX, Protótipo</span>
+            <span>{project.services}</span>
           </div>
           <div>
             <strong className="block mb-2 opacity-50">Tecnologias</strong>
-            <span>React, Python, Node.js</span>
+            <span>{project.technologies}</span>
           </div>
         </div>
       </div>

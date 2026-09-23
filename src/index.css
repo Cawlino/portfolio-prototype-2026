@@ -37,3 +37,8 @@ body {
   mix-blend-mode: difference;
   background-color: white; /* Will invert against dark bg (becomes black on white bg) */
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}

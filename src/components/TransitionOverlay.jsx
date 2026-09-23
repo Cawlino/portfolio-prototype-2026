@@ -35,10 +35,14 @@ export const TransitionOverlay = ({ isActive, onTransitionComplete }) => {
   return (
     <div 
       ref={overlayRef} 
-      className="fixed inset-0 z-[100] bg-black pointer-events-none translate-y-full"
+      className="fixed inset-0 z-[100] bg-[#0A0D14] pointer-events-none translate-y-full flex items-center justify-center"
     >
-      <div className="absolute inset-0 flex items-center justify-center text-white text-4xl md:text-6xl font-bold tracking-tighter">
-        <span className="animate-pulse">Carregando...</span>
+      <div className="w-48 md:w-64">
+        <img 
+          src="/logo-vitrine-web.png" 
+          alt="Vitrine Web Loading" 
+          className="w-full h-auto animate-pulse" 
+        />
       </div>
     </div>
   );

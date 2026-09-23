@@ -48,12 +48,11 @@ export const Background2D = () => {
 
   return (
     <div ref={bgRef} className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-slate-50">
-      {/* Huge background text */}
       <div 
         ref={textRef} 
-        className="absolute top-[30%] left-[10%] text-[20vw] font-bold text-slate-200/50 whitespace-nowrap tracking-tighter"
+        className="absolute top-[30%] left-[5%] flex items-center gap-8 text-[15vw] font-bold text-slate-200/50 whitespace-nowrap tracking-tighter"
       >
-        PROTOTYPE
+        VITRINE WEB
       </div>
 
       {/* Blurry gradient circles */}

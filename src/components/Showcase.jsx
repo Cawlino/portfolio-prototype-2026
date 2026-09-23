@@ -4,32 +4,25 @@ import { HoverDeformImage } from './HoverDeformImage';
 
 const projects = [
   {
-    id: 'project-1',
-    title: 'Nexus Data Scraping',
-    description: 'Arquitetura de extração de dados em massa para identificar leads B2B no LinkedIn e diretórios corporativos. Reduziu o tempo de prospecção em 85%.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
-    features: ['Python & BeautifulSoup', 'Integração CRM Automática', 'Dashboards Analíticos']
+    id: 'pacex',
+    title: 'PaceX AI',
+    description: 'PaceX Mobile é uma plataforma de treino inteligente completa. Através de inteligência artificial, o aplicativo atua como um personal trainer virtual, oferecendo análises profundas, evolução constante e insights personalizados.',
+    image: '/pacex-mobile.png',
+    features: ['Plataforma Completa', 'Personal Trainer IA', 'Análises Inteligentes'],
   },
   {
-    id: 'project-2',
-    title: 'Aura Fintech UI',
-    description: 'Um redesign completo da experiência do usuário para um app de pagamentos. Interface minimalista com feedback tátil e microinterações fluidas.',
-    image: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?q=80&w=2070&auto=format&fit=crop',
-    features: ['React Native', 'Animações 60fps', 'Aumento de 40% em Conversão']
+    id: 'adventista-play',
+    title: 'Adventista Play',
+    description: 'Aplicativo desenvolvido para promover o estudo diário (Escola Sabatina) com uma abordagem gamificada. O sistema de lições e XP incentiva a leitura constante por meio de uma interface fluida e de fácil uso.',
+    images: ['/adventista-mobile.jpg', '/adventista-mobile-2.jpg', '/adventista-mobile-3.jpg'],
+    features: ['Sistema de Progresso', 'UI Mobile Limpa', 'Lições Diárias'],
   },
   {
-    id: 'project-3',
-    title: 'Echo E-commerce',
-    description: 'Plataforma de e-commerce headless focada em performance brutal e SEO. Navegação sem transições de carregamento perceptíveis.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
-    features: ['Next.js', 'Integração Shopify', 'Edge Computing']
-  },
-  {
-    id: 'project-4',
-    title: 'Lumina Analytics',
-    description: 'Dashboard de visualização de dados complexos transformados em gráficos interativos e fáceis de digerir. Tomada de decisão rápida e baseada em fatos.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
-    features: ['D3.js', 'Data Storytelling', 'Modo Escuro Dinâmico']
+    id: 'dentista-cassiano',
+    title: 'Dr. Cassiano',
+    description: 'Página institucional de alta conversão para clínica odontológica. Transmite 31 anos de autoridade com design limpo, galeria interativa de antes/depois e otimização para agendamentos via WhatsApp.',
+    image: '/dentista-cassiano.png',
+    features: ['Design Institucional', 'Slider Interativo', 'Alta Conversão'],
   }
 ];
 
@@ -43,19 +36,21 @@ export const Showcase = ({ onNavigate }) => {
       const innerImage = row.querySelector('.parallax-img');
       const text = row.querySelector('.project-text');
 
-      gsap.fromTo(innerImage,
-        { yPercent: -15 },
-        {
-          yPercent: 15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: row,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
+      if (innerImage) {
+        gsap.fromTo(innerImage,
+          { scale: 1 },
+          {
+            scale: 1.05,
+            ease: "none",
+            scrollTrigger: {
+              trigger: row,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            }
           }
-        }
-      );
+        );
+      }
 
       gsap.fromTo(text,
         { opacity: 0, y: 50 },
@@ -78,53 +73,60 @@ export const Showcase = ({ onNavigate }) => {
         const isEven = index % 2 === 0;
         
         return (
-          <div key={project.id} className="project-row max-w-[100rem] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center">
+          <div key={project.id} className="project-row max-w-[100rem] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-stretch">
             
-            <div className={`project-text flex flex-col items-start ${isEven ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
-              <div className="text-xs font-bold tracking-widest uppercase mb-4 opacity-50">0{index + 1} / 0{projects.length}</div>
-              <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-6 tracking-tight leading-tight">{project.title}</h2>
-              <p className="text-base md:text-lg opacity-80 mb-8 leading-relaxed max-w-xl">
-                {project.description}
-              </p>
-              
-              <ul className="space-y-4 mb-10 w-full max-w-md">
-                {project.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm md:text-base">
-                    <div className="w-1.5 h-1.5 rounded-full bg-current shrink-0"></div>
-                    <span className="opacity-90">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className={`project-text flex flex-col items-start justify-between ${isEven ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
+              <div>
+                <div className="text-xs font-bold tracking-widest uppercase mb-4 opacity-50 pt-2">0{index + 1} / 0{projects.length}</div>
+                <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-6 tracking-tight leading-tight">{project.title}</h2>
+                <p className="text-base md:text-lg opacity-80 mb-8 leading-relaxed max-w-xl">
+                  {project.description}
+                </p>
+                
+                <ul className="space-y-4 mb-10 w-full max-w-md">
+                  {project.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-3 text-sm md:text-base">
+                      <div className="w-1.5 h-1.5 rounded-full bg-current shrink-0"></div>
+                      <span className="opacity-90">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               <button 
                 data-cursor="hover"
                 onClick={() => onNavigate('project', project.id)}
-                className="px-6 py-3 md:px-8 md:py-4 border border-current rounded-full uppercase tracking-widest text-xs md:text-sm hover:bg-[#1E293B] hover:text-[#F0F4F8] transition-colors duration-300"
+                className="mt-auto px-6 py-3 md:px-8 md:py-4 border border-current rounded-full uppercase tracking-widest text-xs md:text-sm hover:bg-[#1E293B] hover:text-[#F0F4F8] transition-colors duration-300"
               >
                 Ver Estudo de Caso
               </button>
             </div>
 
-            <div className={`w-full ${isEven ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}`}>
+            <div className={`w-full min-h-[400px] flex ${isEven ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}`}>
               <HoverDeformImage 
-                outerClassName="project-image-container aspect-[4/3] md:aspect-[16/10] w-full"
-                innerClassName="bg-slate-200 shadow-2xl"
+                outerClassName={`project-image-container relative w-full h-full overflow-hidden rounded-2xl`}
+                innerClassName="bg-zinc-900 shadow-2xl w-full h-full flex items-center justify-center overflow-hidden"
               >
-                <img  
-                  src={project.image} 
-                  alt={project.title} 
-                  className="parallax-img absolute w-[120%] h-[120%] left-[-10%] top-[-10%] object-cover opacity-80"
-                />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-4/5 h-4/5 border border-white/20 rounded-xl bg-black/10 backdrop-blur-md flex flex-col p-4 shadow-2xl">
-                    <div className="flex gap-2 mb-4">
-                      <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-red-400"></div>
-                      <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-yellow-400"></div>
-                      <div className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-green-400"></div>
-                    </div>
-                    <div className="flex-1 rounded border border-white/10 bg-white/10"></div>
+                {project.images ? (
+                  <div className="w-full h-full flex items-center justify-center gap-2 md:gap-4 p-4 md:p-8 bg-zinc-800">
+                    {project.images.map((img, idx) => (
+                      <img 
+                        key={idx} 
+                        src={img} 
+                        alt={`${project.title} screenshot ${idx + 1}`}
+                        className={`w-[30%] max-w-[200px] aspect-[9/16] object-cover rounded-xl md:rounded-2xl shadow-xl transform transition-all duration-500 ${
+                          idx === 1 ? 'scale-110 z-10 -translate-y-4' : 'scale-95 opacity-70 hover:opacity-100 hover:scale-105'
+                        }`}
+                      />
+                    ))}
                   </div>
-                </div>
+                ) : (
+                  <img  
+                    src={project.image} 
+                    alt={project.title} 
+                    className="parallax-img w-full h-full object-cover object-center"
+                  />
+                )}
               </HoverDeformImage>
             </div>
 

@@ -23,9 +23,9 @@ export const Hero = () => {
   return (
     <section 
       ref={containerRef} 
-      className="min-h-screen flex flex-col justify-center items-center px-4 md:px-12 lg:px-16 relative"
+      className="min-h-screen flex flex-col justify-center items-center px-4 md:px-12 lg:px-16 relative overflow-hidden"
     >
-      <div className="max-w-[100rem] w-full">
+      <div className="max-w-[100rem] w-full relative z-10">
         <h1 
           ref={titleRef} 
           className="text-6xl md:text-8xl lg:text-[10rem] font-extrabold tracking-tighter leading-none"
