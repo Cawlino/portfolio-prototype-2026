@@ -120,20 +120,17 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
     });
 
     mm.add("(max-width: 767px)", () => {
-      // Mobile - Animações normais baseadas em scroll nativo horizontal
+      // Mobile - Scroll vertical natural
       const sections = gsap.utils.toArray('.project-row');
 
-      // EXACT JUMP FOR MOBILE
+      // EXACT JUMP FOR MOBILE (vertical)
       if (returnToProjectId) {
         const idx = projects.findIndex(p => p.id === returnToProjectId);
         if (idx > 0) {
           setTimeout(() => {
-            if (containerRef.current) {
-              // Snap the horizontal container to the correct project
-              containerRef.current.scrollLeft = idx * window.innerWidth;
-              
-              // Scroll the window down to the Showcase section
-              const rect = containerRef.current.getBoundingClientRect();
+            const targetEl = sections[idx];
+            if (targetEl) {
+              const rect = targetEl.getBoundingClientRect();
               const targetY = window.scrollY + rect.top;
               
               if (window.lenis) {
@@ -152,16 +149,15 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
 
         if (innerImage) {
           gsap.fromTo(innerImage,
-            { scale: 1 },
+            { scale: 0.95, opacity: 0.5 },
             {
-              scale: 1.05,
-              ease: "none",
+              scale: 1,
+              opacity: 1,
+              ease: "power2.out",
               scrollTrigger: {
                 trigger: row,
-                scroller: containerRef.current,
-                horizontal: true,
-                start: "left right",
-                end: "right left",
+                start: "top 85%",
+                end: "center center",
                 scrub: true,
               }
             }
@@ -176,9 +172,7 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
             duration: 1,
             scrollTrigger: {
               trigger: row,
-              scroller: containerRef.current,
-              horizontal: true,
-              start: "left 85%",
+              start: "top 85%",
               toggleActions: "play none none reverse"
             }
           }
@@ -192,11 +186,11 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
   return (
     <section 
       ref={containerRef} 
-      className="w-full h-[100vh] overflow-x-auto md:overflow-hidden snap-x snap-mandatory md:snap-none"
+      className="w-full h-auto md:h-[100vh] overflow-x-hidden md:overflow-hidden"
     >
       <div 
         ref={wrapperRef} 
-        className="flex flex-row flex-nowrap w-[calc(100vw*3)] h-full"
+        className="flex flex-col md:flex-row flex-nowrap w-full md:w-[calc(100vw*3)] h-full"
       >
         {projects.map((project, index) => {
           const isEven = index % 2 === 0;
@@ -204,7 +198,7 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
           return (
             <div 
               key={project.id} 
-              className="project-row w-screen h-screen shrink-0 snap-center flex items-center justify-center px-4 md:px-12 lg:px-16"
+              className="project-row w-full md:w-screen h-auto md:h-screen shrink-0 flex items-center justify-center px-4 py-24 md:py-0 md:px-12 lg:px-16 border-b border-white/5 md:border-none last:border-none"
             >
               <div className="max-w-[100rem] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-stretch">
                 

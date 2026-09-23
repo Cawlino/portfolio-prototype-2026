@@ -18,8 +18,10 @@ export const HoverDeformImage = ({ children, outerClassName, innerClassName }) =
     anims.current.bl = gsap.quickTo(containerRef.current, "borderBottomLeftRadius", { duration: 0.4, ease: "power3.out" });
   }, []);
 
+  const isTouchDevice = () => window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
   const handleMouseMove = (e) => {
-    if (!anims.current.tl) return;
+    if (isTouchDevice() || !anims.current.tl) return;
     
     const rect = e.currentTarget.getBoundingClientRect();
     const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
@@ -40,7 +42,7 @@ export const HoverDeformImage = ({ children, outerClassName, innerClassName }) =
   };
 
   const handleMouseEnter = () => {
-    if (!imgWrapperRef.current) return;
+    if (isTouchDevice() || !imgWrapperRef.current) return;
     gsap.to(imgWrapperRef.current, {
       scale: 1.05,
       duration: 0.5,
@@ -50,7 +52,7 @@ export const HoverDeformImage = ({ children, outerClassName, innerClassName }) =
   };
 
   const handleMouseLeave = () => {
-    if (!anims.current.tl) return;
+    if (isTouchDevice() || !anims.current.tl) return;
     
     anims.current.tl(16);
     anims.current.tr(16);
