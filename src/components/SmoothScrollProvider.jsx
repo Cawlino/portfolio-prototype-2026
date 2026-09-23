@@ -20,6 +20,7 @@ export const SmoothScrollProvider = ({ children }) => {
     });
 
     lenisRef.current = lenis;
+    window.lenis = lenis;
 
     // Sync ScrollTrigger with Lenis
     lenis.on('scroll', ScrollTrigger.update);

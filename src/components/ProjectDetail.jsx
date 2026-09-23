@@ -6,30 +6,30 @@ const projectDetails = {
     title: 'PACEX',
     subtitle: 'AI',
     image: '/pacex-mobile.png',
-    description: 'O PaceX Mobile é uma plataforma de treino inteligente e completa. Através de inteligência artificial avançada, o app atua como um personal trainer virtual, oferecendo insights, evolução constante e análises profundas para os atletas, tudo em uma interface altamente imersiva.',
+    description: 'Transforme a maneira como seus usuários treinam com o PaceX AI. Desenvolvido do zero como um aplicativo nativo robusto, ele integra Inteligência Artificial avançada para atuar como um personal trainer virtual e inteligente. Uma plataforma escalável que eleva a retenção de alunos através de insights personalizados, evolução constante e uma interface imersiva. A tecnologia ideal para negócios fitness que desejam oferecer uma experiência premium e automatizada.',
     client: 'PaceX',
-    services: 'App Mobile, Inteligência Artificial',
-    technologies: 'React Native, Expo, Node.js',
+    services: 'App Mobile Nativo, Inteligência Artificial',
+    technologies: 'React Native, Expo, Tailwind, React Query, RevenueCat',
     aspect: 'aspect-video w-full'
   },
   'adventista-play': {
     title: 'ADVENTISTA',
     subtitle: 'PLAY',
     image: '/adventista-mobile.jpg',
-    description: 'Um aplicativo educacional gamificado, focado no estudo diário da Escola Sabatina. Inspirado no Duolingo, desenvolvemos recursos como ofensivas, XP e lições modulares. O design da aba de Lições foi pensado para oferecer uma interface limpa que não distrai o momento de devoção.',
+    description: 'Crie engajamento real e recorrente com o Adventista Play. Utilizamos a ciência da gamificação para transformar o estudo em um hábito diário viciante. Com sistemas de ofensivas (streaks), acúmulo de XP e estruturação de lições modulares, o aplicativo maximiza a taxa de retorno dos usuários. Uma arquitetura escalável e focada em resultados, perfeita para instituições e empresas que buscam revolucionar a aprendizagem e retenção na era digital.',
     client: 'Adventista Play',
-    services: 'Mobile App, Gamificação',
-    technologies: 'Expo, React Native',
+    services: 'Mobile App, Gamificação, SaaS',
+    technologies: 'React Native, Expo, Supabase, Tailwind',
     aspect: 'aspect-[9/16] w-full max-w-[350px] mx-auto'
   },
   'dentista-cassiano': {
     title: 'DR.',
     subtitle: 'CASSIANO',
     image: '/dentista-cassiano.png',
-    description: 'Landing page projetada para o Dr. Cassiano Martins Gomes, com foco na captação de pacientes e transmissão de autoridade. A interface limpa evidencia os 31 anos de experiência clínica, contando com componentes interativos como o comparador "Antes e Depois" e direcionamento ágil para o WhatsApp.',
+    description: 'Aumente o fluxo de pacientes do seu consultório com uma Landing Page de alta conversão. O projeto para o Dr. Cassiano foi estrategicamente desenhado para transmitir credibilidade absoluta (31 anos de experiência) e capturar leads de forma direta para o WhatsApp. Com elementos visuais de impacto, como o comparador Antes/Depois interativo, sua clínica se destaca na internet, transformando visitantes em pacientes reais de alto valor.',
     client: 'Dr. Cassiano Martins Gomes',
-    services: 'Web Design, Landing Page',
-    technologies: 'React, Vite, CSS3',
+    services: 'Web Design, Landing Page de Conversão',
+    technologies: 'React, Vite, CSS, React Router',
     aspect: 'aspect-video w-full'
   }
 };
@@ -39,9 +39,6 @@ export const ProjectDetail = ({ projectId, onNavigate }) => {
   const project = projectDetails[projectId] || projectDetails['pacex'];
 
   useEffect(() => {
-    // Scroll to top when mounting
-    window.scrollTo(0, 0);
-
     gsap.fromTo(containerRef.current.children, 
       { y: 50, opacity: 0 }, 
       { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.5 }

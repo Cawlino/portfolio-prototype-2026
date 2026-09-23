@@ -33,7 +33,7 @@ export const Footer = () => {
             <li><a href="#" data-cursor="hover" className="hover:opacity-50 transition-opacity">Projetos</a></li>
             <li><a href="#" data-cursor="hover" className="hover:opacity-50 transition-opacity">Sobre nós</a></li>
             <li 
-              className="cursor-pointer hover:opacity-50 transition-opacity"
+              className="hover:opacity-50 transition-opacity"
               data-cursor="hover" 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >

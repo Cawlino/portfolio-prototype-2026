@@ -81,7 +81,7 @@ export const About = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
           
-          <div ref={addToRefs} className="flex flex-col group cursor-pointer">
+          <div ref={addToRefs} className="flex flex-col group" data-cursor="hover">
             <HoverDeformImage 
               outerClassName="profile-image-container aspect-[3/4] mb-8 w-full"
               innerClassName="bg-zinc-200 shadow-2xl"
@@ -103,7 +103,7 @@ export const About = () => {
             </div>
           </div>
 
-          <div ref={addToRefs} className="flex flex-col group cursor-pointer mt-0 md:mt-48">
+          <div ref={addToRefs} className="flex flex-col group mt-0 md:mt-48" data-cursor="hover">
             <HoverDeformImage 
               outerClassName="profile-image-container aspect-[3/4] mb-8 w-full"
               innerClassName="bg-zinc-200 shadow-2xl"
