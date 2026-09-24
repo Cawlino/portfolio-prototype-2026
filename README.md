@@ -1,16 +1,67 @@
-# React + Vite
+# Vitrine Web (Portfólio Interativo)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## 📌 Sobre o Projeto
+Este é um projeto de portfólio moderno e altamente responsivo desenvolvido em conjunto por **Daniel** e **Nathanael**. O objetivo central desta aplicação é servir como uma vitrine interativa para exibir os projetos que já desenvolvemos. 
 
-Currently, two official plugins are available:
+**Metas do projeto:**
+- 🚀 **Captar leads** e novos clientes.
+- 💼 **Conseguir trabalhos como freelancer**.
+- 🛠️ **Produzir e catalogar novos projetos**.
+- 🖥️ **Servir como demonstração** das nossas capacidades técnicas para potenciais clientes, mostrando o nível de design, responsividade e interatividade que podemos entregar.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tecnologias Utilizadas
+O projeto utiliza uma stack moderna focada em performance e animações fluidas:
+- **React 19** + **Vite**: Estrutura e build rápido.
+- **Tailwind CSS v4**: Estilização utilitária e responsividade.
+- **GSAP**: Animações avançadas, especialmente o *ScrollTrigger* para rolagem horizontal responsiva no desktop.
+- **Lenis**: Smooth scrolling (rolagem suave).
+- **Three.js** & **React Three Fiber**: Elementos e interações visuais em 3D.
+- **Oxlint**: Linter de código.
 
-## React Compiler
+## 🚀 Como Rodar o Projeto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Pré-requisitos
+Certifique-se de ter o **Node.js** instalado em sua máquina.
 
-## Expanding the Oxlint configuration
+### Passos
+1. Instale as dependências:
+   ```bash
+   npm install
+   ```
+2. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+3. O terminal mostrará a URL local (geralmente `http://localhost:5173`). Acesse-a no seu navegador.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## ➕ Como Adicionar Novos Projetos (Guia para o Nathanael)
+
+Nathanael, quando você for adicionar seus projetos, basta seguir a estrutura abaixo. Não é necessário criar novas páginas, apenas alimentar o array já existente.
+
+1. **Coloque suas imagens/assets:**
+   Adicione as imagens dos seus projetos na pasta `public/` (na raiz do projeto). 
+   *Exemplo: `public/meu-projeto.jpg`*
+
+2. **Registre o projeto no Showcase:**
+   Abra o arquivo `src/components/Showcase.jsx`. Logo no topo do arquivo, você verá um array chamado `projects`. Adicione um novo bloco (objeto) para o seu projeto seguindo este modelo:
+
+   ```javascript
+   {
+     id: 'id-unico-do-projeto', // Use hífens, ex: 'sistema-clinica'
+     title: 'Nome do Seu Projeto',
+     description: 'Descrição atraente sobre o projeto. O que ele é, que problema resolve e quais tecnologias principais utilizou.',
+     // Você pode usar uma única imagem:
+     image: '/sua-imagem-no-public.jpg',
+     // OU várias imagens (para versão mobile, por exemplo):
+     // images: ['/img1.jpg', '/img2.jpg', '/img3.jpg'],
+     features: ['Destaque 1', 'Destaque 2', 'Destaque 3'],
+   }
+   ```
+   
+   O componente lidará automaticamente com a intercalação visual (texto na esquerda/imagem na direita e vice-versa) e a renderização do carrossel/scroll!
+
+## 🤖 Contexto para Agentes de IA
+Se você é uma IA ajudando na manutenção ou evolução deste código, tenha em mente:
+- **Layout & Animações:** A seção principal de exibição de projetos (`Showcase.jsx`) utiliza GSAP com `ScrollTrigger`. No desktop (≥768px), ocorre um pin e rolagem horizontal (`xPercent`). No mobile, isso é desfeito (usando `matchMedia` do GSAP) para uma rolagem vertical natural.
+- **Estilo:** Prioriza visual sofisticado ("clean"), contrastes altos, animações ativadas por hover e custom cursor (via `CustomCursor.jsx`). O Tailwind está configurado para V4.
+- Sempre tente manter ou reaproveitar a estrutura de componentes que foca em micro-interações.
