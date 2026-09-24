@@ -66,16 +66,16 @@ export const About = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-32 px-4 md:px-12 lg:px-16 w-full border-t border-current border-opacity-10 relative overflow-hidden">
+    <section id="sobre-nos" ref={sectionRef} className="py-32 px-4 md:px-12 lg:px-16 w-full border-t border-current border-opacity-10 relative overflow-hidden">
       <div className="max-w-[100rem] mx-auto">
         
         <div className="mb-32">
           <p className="text-sm font-bold tracking-widest uppercase mb-8 opacity-50">O Cérebro por trás da operação</p>
           <h2 
             ref={textRef} 
-            className="text-4xl md:text-6xl lg:text-8xl font-bold tracking-tight leading-tight max-w-[80rem]"
+            className="text-3xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-tight max-w-[70rem]"
           >
-            Nós unimos a precisão da extração de dados com o impacto visual de protótipos de alta conversão. O resultado? <span className="opacity-40">Um motor imparável de aquisição de clientes.</span>
+            Engenharia Full-Stack e IA focada em escalabilidade. <span className="opacity-40">Desenvolvemos desde páginas de alta conversão até ecossistemas complexos e inovadores.</span>
           </h2>
         </div>
 
@@ -87,18 +87,18 @@ export const About = () => {
               innerClassName="bg-zinc-200 shadow-2xl"
             >
               <img 
-                src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=2070&auto=format&fit=crop" 
-                alt="Daniel" 
-                className="parallax-img absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
+                src="/daniel.jpg" 
+                alt="Daniel Barrionuevo" 
+                className="parallax-img absolute inset-[-10%] w-[120%] h-[120%] object-cover transition-all duration-700"
               />
             </HoverDeformImage>
             <div className="profile-content">
-              <h3 className="text-3xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Daniel</h3>
+              <h3 className="text-3xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Daniel Barrionuevo</h3>
               <p className="text-sm font-bold tracking-widest uppercase opacity-50 mb-6 border-b border-current pb-4 inline-block">
-                Especialista em Dados & Automação
+                Engenheiro de Software Full Stack
               </p>
               <p className="text-lg opacity-80 leading-relaxed max-w-lg">
-                Focado na lógica, estrutura e performance. É o responsável por desenvolver os motores de scraping que varrem a web em busca dos leads mais quentes. Para ele, dados são o novo petróleo, e a automação é a refinaria.
+                Tech Lead e Desenvolvedor Full Stack, especialista na concepção de plataformas completas em React e Node.js. Focado em escalabilidade, arquiteturas robustas e integração de Inteligência Artificial para criar soluções inovadoras.
               </p>
             </div>
           </div>
@@ -109,18 +109,18 @@ export const About = () => {
               innerClassName="bg-zinc-200 shadow-2xl"
             >
               <img 
-                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop" 
-                alt="Sócio" 
-                className="parallax-img absolute inset-[-10%] w-[120%] h-[120%] object-cover grayscale transition-all duration-700"
+                src="/natanael.jpg" 
+                alt="Natanael Balbo" 
+                className="parallax-img absolute inset-[-10%] w-[120%] h-[120%] object-cover transition-all duration-700"
               />
             </HoverDeformImage>
             <div className="profile-content">
-              <h3 className="text-3xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Sócio / Design</h3>
+              <h3 className="text-3xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Natanael Balbo</h3>
               <p className="text-sm font-bold tracking-widest uppercase opacity-50 mb-6 border-b border-current pb-4 inline-block">
-                Diretor de UI/UX & Protótipos
+                Engenheiro de Software Full Stack
               </p>
               <p className="text-lg opacity-80 leading-relaxed max-w-lg">
-                Transforma dados complexos em interfaces que convertem. Especialista em criar protótipos de altíssima fidelidade que não apenas brilham aos olhos, mas guiam os leads diretamente para a ação desejada.
+                Desenvolvedor Full Stack apaixonado por criar soluções escaláveis e funcionais. Especialista em React, TypeScript, Python e Django, atua em todo o ciclo de desenvolvimento de sistemas modernos e de alto desempenho.
               </p>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HoverDeformImage } from './HoverDeformImage';
@@ -32,6 +32,36 @@ const projects = [
 export const Showcase = ({ onNavigate, returnToProjectId }) => {
   const containerRef = useRef(null);
   const wrapperRef = useRef(null);
+  const scrollTweenRef = useRef(null);
+  
+  const activeIdxRef = useRef(0);
+  const prevBtnRef = useRef(null);
+  const nextBtnRef = useRef(null);
+
+  const scrollToIdx = (idx) => {
+    if (!scrollTweenRef.current || !scrollTweenRef.current.scrollTrigger) return;
+    const st = scrollTweenRef.current.scrollTrigger;
+    const total = projects.length - 1;
+    const targetY = st.start + (idx / total) * (st.end - st.start);
+    
+    if (window.lenis) {
+      window.lenis.scrollTo(targetY, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+  };
+
+  const handleNext = () => {
+    if (activeIdxRef.current < projects.length - 1) {
+      scrollToIdx(activeIdxRef.current + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (activeIdxRef.current > 0) {
+      scrollToIdx(activeIdxRef.current - 1);
+    }
+  };
 
   useEffect(() => {
     const mm = gsap.matchMedia();
@@ -54,9 +84,28 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
             ease: "power1.inOut",
             directional: false
           },
-          end: () => "+=" + wrapperRef.current.offsetWidth
+          end: () => "+=" + wrapperRef.current.offsetWidth,
+          onUpdate: (self) => {
+            const newIdx = Math.round(self.progress * (sections.length - 1));
+            activeIdxRef.current = newIdx;
+            
+            if (prevBtnRef.current) {
+              const isStart = self.progress <= 0.05;
+              prevBtnRef.current.style.opacity = isStart ? '0' : '1';
+              prevBtnRef.current.style.transform = isStart ? 'translateX(-16px)' : 'translateX(0)';
+              prevBtnRef.current.style.pointerEvents = isStart ? 'none' : 'auto';
+            }
+            if (nextBtnRef.current) {
+              const isEnd = self.progress >= 0.95;
+              nextBtnRef.current.style.opacity = isEnd ? '0' : '1';
+              nextBtnRef.current.style.transform = isEnd ? 'translateX(16px)' : 'translateX(0)';
+              nextBtnRef.current.style.pointerEvents = isEnd ? 'none' : 'auto';
+            }
+          }
         }
       });
+      
+      scrollTweenRef.current = scrollTween;
 
       // EXACT JUMP FOR DESKTOP
       if (returnToProjectId) {
@@ -77,7 +126,7 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
         }
       }
 
-      sections.forEach((row) => {
+      sections.forEach((row, index) => {
         const innerImage = row.querySelector('.parallax-img');
         const text = row.querySelector('.project-text');
 
@@ -88,10 +137,10 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
               scale: 1.05,
               ease: "none",
               scrollTrigger: {
-                trigger: row,
-                containerAnimation: scrollTween,
-                start: "left right",
-                end: "right left",
+                trigger: index === 0 ? containerRef.current : row,
+                containerAnimation: index === 0 ? null : scrollTween,
+                start: index === 0 ? "top bottom" : "left right",
+                end: index === 0 ? "bottom top" : "right left",
                 scrub: true,
               }
             }
@@ -105,9 +154,9 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
             y: 0,
             duration: 1,
             scrollTrigger: {
-              trigger: row,
-              containerAnimation: scrollTween,
-              start: "left center",
+              trigger: index === 0 ? containerRef.current : row,
+              containerAnimation: index === 0 ? null : scrollTween,
+              start: index === 0 ? "top 70%" : "left center",
               toggleActions: "play none none reverse"
             }
           }
@@ -143,7 +192,7 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
         }
       }
 
-      sections.forEach((row) => {
+      sections.forEach((row, index) => {
         const innerImage = row.querySelector('.parallax-img');
         const text = row.querySelector('.project-text');
 
@@ -156,7 +205,7 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
               ease: "power2.out",
               scrollTrigger: {
                 trigger: row,
-                start: "top 85%",
+                start: index === 0 ? "top 95%" : "top 85%",
                 end: "center center",
                 scrub: true,
               }
@@ -172,7 +221,7 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
             duration: 1,
             scrollTrigger: {
               trigger: row,
-              start: "top 85%",
+              start: index === 0 ? "top 95%" : "top 85%",
               toggleActions: "play none none reverse"
             }
           }
@@ -185,9 +234,34 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
 
   return (
     <section 
+      id="projetos"
       ref={containerRef} 
-      className="w-full h-auto md:h-[100vh] overflow-x-hidden md:overflow-hidden"
+      className="w-full h-auto md:h-[100vh] overflow-x-hidden md:overflow-hidden relative"
     >
+      {/* Navigation Arrows (Desktop Only) */}
+      <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 w-full justify-between px-4 lg:px-8 pointer-events-none z-50">
+        <button 
+          ref={prevBtnRef}
+          onClick={handlePrev}
+          className="opacity-0 -translate-x-4 pointer-events-none flex items-center justify-center gap-3 px-6 h-12 lg:h-14 rounded-full bg-white/20 backdrop-blur-xl border border-white/40 text-white shadow-2xl transition-all duration-300 hover:bg-white/40 hover:scale-105"
+          aria-label="Projeto anterior"
+          data-cursor="hover"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <span className="text-sm font-bold tracking-widest uppercase">Anterior</span>
+        </button>
+        <button 
+          ref={nextBtnRef}
+          onClick={handleNext}
+          className="opacity-100 translate-x-0 pointer-events-auto flex items-center justify-center gap-3 px-6 h-12 lg:h-14 rounded-full bg-white/20 backdrop-blur-xl border border-white/40 text-white shadow-2xl transition-all duration-300 hover:bg-white/40 hover:scale-105"
+          aria-label="Próximo projeto"
+          data-cursor="hover"
+        >
+          <span className="text-sm font-bold tracking-widest uppercase">Ver mais projetos</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+
       <div 
         ref={wrapperRef} 
         className="flex flex-col md:flex-row flex-nowrap w-full md:w-[calc(100vw*3)] h-full"
@@ -198,7 +272,7 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
           return (
             <div 
               key={project.id} 
-              className="project-row w-full md:w-screen h-auto md:h-screen shrink-0 flex items-center justify-center px-4 py-24 md:py-0 md:px-12 lg:px-16 border-b border-white/5 md:border-none last:border-none"
+              className="project-row relative w-full md:w-screen h-auto md:h-screen shrink-0 flex items-center justify-center px-4 py-24 md:py-0 md:px-12 lg:px-16 border-b border-white/5 md:border-none last:border-none"
             >
               <div className="max-w-[100rem] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-stretch">
                 
@@ -258,6 +332,24 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
                 </div>
 
               </div>
+              <button
+                onClick={() => {
+                  const nextSection = document.getElementById('sobre-nos');
+                  if (nextSection) {
+                    if (window.lenis) {
+                      window.lenis.scrollTo(nextSection, { offset: 0, duration: 1.2 });
+                    } else {
+                      nextSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }
+                }}
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center gap-3 px-6 md:px-8 py-3 rounded-full bg-zinc-900/90 backdrop-blur-xl border border-white/10 text-white shadow-2xl hover:bg-zinc-800 transition-all duration-300 hover:scale-105 z-10"
+                data-cursor="hover"
+                aria-label="Ir para a próxima seção"
+              >
+                <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest whitespace-nowrap">Conheça a equipe</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-bounce"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+              </button>
             </div>
           );
         })}

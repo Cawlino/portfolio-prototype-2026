@@ -29,7 +29,7 @@ export const Header = ({ onNavigate }) => {
         </div>
         <nav className="hidden md:flex gap-8 text-sm uppercase tracking-widest font-medium pr-16 opacity-0 select-none">
           <span>Projetos</span>
-          <span>Serviços</span>
+          <span>Sobre Nós</span>
           <span>Contato</span>
         </nav>
         <div className="md:hidden pr-16 font-medium text-sm tracking-widest uppercase opacity-0 select-none">
@@ -42,7 +42,7 @@ export const Header = ({ onNavigate }) => {
         <div 
           className="flex items-center gap-0.5 group pointer-events-auto"
           data-cursor="hover"
-          onClick={() => onNavigate('home')}
+          onClick={() => onNavigate('home', '#top')}
         >
           <img 
             src="/logo-symbol.png" 
@@ -55,9 +55,9 @@ export const Header = ({ onNavigate }) => {
         </div>
         
         <nav className="hidden md:flex gap-8 text-sm uppercase tracking-widest font-medium pr-16 pointer-events-auto">
-          <button className="hover:opacity-60 transition-opacity" onClick={() => onNavigate('home')}>Projetos</button>
-          <button className="hover:opacity-60 transition-opacity">Serviços</button>
-          <button className="hover:opacity-60 transition-opacity">Contato</button>
+          <button className="hover:opacity-60 transition-opacity" onClick={() => onNavigate('home', '#projetos')}>Projetos</button>
+          <button className="hover:opacity-60 transition-opacity" onClick={() => onNavigate('home', '#sobre-nos')}>Sobre Nós</button>
+          <button className="hover:opacity-60 transition-opacity" onClick={() => onNavigate('home', '#contato')}>Contato</button>
         </nav>
         
         <div 

@@ -19,8 +19,18 @@ function AppContent() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const savedScroll = React.useRef(0);
 
-  const handleNavigate = (view, projectId = null) => {
-    if (view === currentView) return;
+  const handleNavigate = (view, target = null) => {
+    if (view === currentView) {
+      if (view === 'home' && target && typeof target === 'string' && target.startsWith('#')) {
+        if (window.lenis) {
+          window.lenis.scrollTo(target === '#top' ? 0 : target, { duration: 1.5 });
+        } else {
+          const el = target === '#top' ? document.body : document.querySelector(target);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      return;
+    }
     
     // 1. Capture scroll IMMEDIATELY before any transitions or unmounts start
     if (currentView === 'home') {
@@ -29,7 +39,7 @@ function AppContent() {
     
     // 2. Track the last project visited so Showcase can snap to it explicitly
     if (view === 'project') {
-      setLastProjectId(projectId);
+      setLastProjectId(target);
     }
     
     setIsTransitioning(true);
@@ -51,7 +61,9 @@ function AppContent() {
 
       // 6. Now switch the view — React will unmount old, mount new
       setCurrentView(view);
-      setActiveProjectId(projectId);
+      if (view === 'project') {
+        setActiveProjectId(target);
+      }
       
       // 7. After React has rendered the new component, restart Lenis and refresh
       requestAnimationFrame(() => {
@@ -61,14 +73,18 @@ function AppContent() {
 
           if (window.lenis) {
             window.lenis.start();
-            // If returning to home, restore the saved scroll position
-            const targetScroll = view === 'home' ? savedScroll.current : 0;
+            let targetScroll = view === 'home' ? savedScroll.current : 0;
+            if (view === 'home' && target && typeof target === 'string' && target.startsWith('#')) {
+              targetScroll = target === '#top' ? 0 : target;
+            }
             window.lenis.scrollTo(targetScroll, { immediate: true });
-            // Force GSAP to update its animations to the new scroll position immediately
             ScrollTrigger.update();
           } else {
-             // Fallback for native scroll
-             const targetScroll = view === 'home' ? savedScroll.current : 0;
+             let targetScroll = view === 'home' ? savedScroll.current : 0;
+             if (view === 'home' && target && typeof target === 'string' && target.startsWith('#')) {
+               const el = target === '#top' ? document.body : document.querySelector(target);
+               targetScroll = el ? el.offsetTop : 0;
+             }
              window.scrollTo(0, targetScroll);
              ScrollTrigger.update();
           }
@@ -102,7 +118,7 @@ function AppContent() {
         {currentView === 'project' && (
           <ProjectDetail projectId={activeProjectId} onNavigate={handleNavigate} />
         )}
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
       </main>
     </>
   );
