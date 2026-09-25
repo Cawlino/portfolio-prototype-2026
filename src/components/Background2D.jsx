@@ -11,39 +11,44 @@ export const Background2D = () => {
   const textRef = useRef(null);
 
   useEffect(() => {
-    // Parallax and color shifting based on scroll
-    gsap.to(circle1Ref.current, {
-      yPercent: 50,
-      scale: 1.5,
-      scrollTrigger: {
-        trigger: document.body,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1
-      }
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      // Parallax and color shifting based on scroll only on desktop
+      gsap.to(circle1Ref.current, {
+        yPercent: 50,
+        scale: 1.5,
+        scrollTrigger: {
+          trigger: document.body,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1
+        }
+      });
+
+      gsap.to(circle2Ref.current, {
+        yPercent: -50,
+        xPercent: 30,
+        scrollTrigger: {
+          trigger: document.body,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.5
+        }
+      });
+
+      gsap.to(textRef.current, {
+        xPercent: -50,
+        scrollTrigger: {
+          trigger: document.body,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 2
+        }
+      });
     });
 
-    gsap.to(circle2Ref.current, {
-      yPercent: -50,
-      xPercent: 30,
-      scrollTrigger: {
-        trigger: document.body,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1.5
-      }
-    });
-
-    gsap.to(textRef.current, {
-      xPercent: -50,
-      scrollTrigger: {
-        trigger: document.body,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 2
-      }
-    });
-
+    return () => mm.revert();
   }, []);
 
   return (

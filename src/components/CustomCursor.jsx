@@ -5,7 +5,11 @@ export const CustomCursor = () => {
   const cursorRef = useRef(null);
 
   useEffect(() => {
+    // Only run on devices that support hover (no touch)
+    if (!window.matchMedia("(any-hover: hover)").matches) return;
+
     const cursor = cursorRef.current;
+    if (!cursor) return;
     
     // Set initial position
     gsap.set(cursor, { xPercent: -50, yPercent: -50 });
