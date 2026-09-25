@@ -343,7 +343,7 @@ export const Showcase = ({ onNavigate, returnToProjectId }) => {
                     }
                   }
                 }}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center gap-3 px-6 md:px-8 py-3 rounded-full bg-zinc-900/90 backdrop-blur-xl border border-white/10 text-white shadow-2xl hover:bg-zinc-800 transition-all duration-300 hover:scale-105 z-10"
+                className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 items-center justify-center gap-3 px-6 md:px-8 py-3 rounded-full bg-zinc-900/90 backdrop-blur-xl border border-white/10 text-white shadow-2xl hover:bg-zinc-800 transition-all duration-300 hover:scale-105 z-10"
                 data-cursor="hover"
                 aria-label="Ir para a próxima seção"
               >
