@@ -70,7 +70,7 @@ export const Hero = () => {
         </div>
       </div>
       
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce opacity-50">
+      <div className="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center animate-bounce opacity-50">
         <span className="text-sm tracking-widest uppercase mb-2">Scroll</span>
         <div className="w-[1px] h-12 bg-current"></div>
       </div>
